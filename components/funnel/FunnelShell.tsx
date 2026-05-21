@@ -61,7 +61,6 @@ export default function FunnelShell() {
 
   const handleLeadCreated = useCallback(
     async (bookingData: BookingData) => {
-      setBooking(bookingData);
       try {
         const res = await fetch("/api/leads", {
           method: "POST",
@@ -71,14 +70,18 @@ export default function FunnelShell() {
             email: lead.email,
             telephone: lead.telephone,
             calendly_event_uri: bookingData.calendlyEventUri,
-            booking_date: bookingData.date,
-            booking_time: bookingData.time,
           }),
         });
         const data = await res.json();
         if (data.id) setLeadId(data.id);
+        setBooking({
+          calendlyEventUri: bookingData.calendlyEventUri,
+          date: data.booking_date ?? null,
+          time: data.booking_time ?? null,
+        });
       } catch (err) {
         console.error("Erreur lors de la création du lead:", err);
+        setBooking(bookingData);
       }
       goTo(5);
     },

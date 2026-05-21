@@ -1,7 +1,18 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import type { LeadData, BookingData } from "@/lib/types";
 import BackButton from "../shared/BackButton";
 import PrimaryButton from "../shared/PrimaryButton";
+
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (opts: {
+        url: string;
+        parentElement: HTMLElement;
+      }) => void;
+    };
+  }
+}
 
 interface CalendarScreenProps {
   goTo: (n: number) => void;
@@ -17,62 +28,8 @@ export default function CalendarScreen({
   onBookingComplete,
 }: CalendarScreenProps) {
   const [booked, setBooked] = useState(false);
-  const [bookingData, setBookingData] = useState<BookingData>({
-    calendlyEventUri: null,
-    date: null,
-    time: null,
-  });
-
-  useEffect(() => {
-    const handler = (e: MessageEvent) => {
-      // Log TOUS les messages provenant de Calendly pour debug
-      if (e.origin?.includes("calendly")) {
-        console.log("[Calendly message]", JSON.stringify(e.data, null, 2));
-      }
-
-      if (!e.data?.event) return;
-
-      if (e.data.event === "calendly.date_and_time_selected") {
-        console.log("[Calendly] date_and_time_selected:", JSON.stringify(e.data, null, 2));
-      }
-
-      if (e.data.event === "calendly.event_scheduled") {
-        console.log("[Calendly] event_scheduled:", JSON.stringify(e.data, null, 2));
-
-        const payload = e.data.payload ?? {};
-        const eventUri = payload.event?.uri ?? payload.uri ?? null;
-
-        const startTime =
-          payload.event?.start_time ??
-          payload.invitee?.event?.start_time ??
-          payload.event_start_time ??
-          null;
-
-        let date: string | null = null;
-        let time: string | null = null;
-
-        if (startTime) {
-          const d = new Date(startTime);
-          date = d.toLocaleDateString("fr-FR", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          });
-          time = d.toLocaleTimeString("fr-FR", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-        }
-
-        setBookingData({ calendlyEventUri: eventUri, date, time });
-        setBooked(true);
-      }
-    };
-
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
-  }, []);
+  const [eventUri, setEventUri] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const calendlySrc = useMemo(() => {
     if (!CALENDLY_URL) return null;
@@ -86,23 +43,63 @@ export default function CalendarScreen({
     if (lead.email) params.set("email", lead.email);
     if (lead.telephone) {
       let phone = lead.telephone.replace(/\s+/g, "");
-      // Convertir 06... ou 07... en +336... ou +337...
-      if (phone.startsWith("0")) {
-        phone = "+33" + phone.slice(1);
-      }
-      // Ajouter +33 si pas de préfixe international
-      if (!phone.startsWith("+")) {
-        phone = "+33" + phone;
-      }
+      if (phone.startsWith("0")) phone = "+33" + phone.slice(1);
+      if (!phone.startsWith("+")) phone = "+33" + phone;
       params.set("a1", phone);
       params.set("location", phone);
     }
     return `${CALENDLY_URL}?${params.toString()}`;
   }, [lead.prenom, lead.email, lead.telephone]);
 
+  useEffect(() => {
+    if (!calendlySrc || !containerRef.current) return;
+
+    const container = containerRef.current;
+
+    const initWidget = () => {
+      if (!window.Calendly || !container) return;
+      container.innerHTML = "";
+      window.Calendly.initInlineWidget({
+        url: calendlySrc,
+        parentElement: container,
+      });
+    };
+
+    const existing = document.querySelector(
+      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
+    );
+
+    if (existing && window.Calendly) {
+      initWidget();
+    } else if (!existing) {
+      const script = document.createElement("script");
+      script.src =
+        "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      script.onload = initWidget;
+      document.head.appendChild(script);
+    }
+  }, [calendlySrc]);
+
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      if (!e.data?.event) return;
+
+      if (e.data.event === "calendly.event_scheduled") {
+        const payload = e.data.payload ?? {};
+        const uri: string | null = payload.event?.uri ?? null;
+        setEventUri(uri);
+        setBooked(true);
+      }
+    };
+
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
   const handleConfirm = () => {
-    onBookingComplete(booked ? bookingData : {
-      calendlyEventUri: null,
+    onBookingComplete({
+      calendlyEventUri: booked ? eventUri : null,
       date: null,
       time: null,
     });
@@ -132,17 +129,18 @@ export default function CalendarScreen({
 
         {calendlySrc ? (
           <>
-            <iframe
-              src={calendlySrc}
-              className="w-full border-0 min-h-170 rounded-none"
-              title="Calendly - Réserver un appel découverte"
+            <div
+              ref={containerRef}
+              style={{ minWidth: 320, height: 700 }}
+              className="w-full"
             />
             <div className="mt-8 text-center">
               <PrimaryButton onClick={handleConfirm}>
                 J&apos;ai réservé mon créneau
               </PrimaryButton>
               <p className="mt-3 text-[11px] text-white/25 leading-[1.6]">
-                Cliquez après avoir confirmé votre rendez-vous dans le calendrier ci-dessus.
+                Cliquez après avoir confirmé votre rendez-vous dans le
+                calendrier ci-dessus.
               </p>
             </div>
           </>
@@ -152,8 +150,10 @@ export default function CalendarScreen({
               Calendly non configuré
             </p>
             <p className="text-white/25 text-sm leading-[1.6]">
-              Ajoutez <code className="text-white/40">NEXT_PUBLIC_CALENDLY_URL</code> dans votre
-              fichier <code className="text-white/40">.env.local</code> pour activer la
+              Ajoutez{" "}
+              <code className="text-white/40">NEXT_PUBLIC_CALENDLY_URL</code>{" "}
+              dans votre fichier{" "}
+              <code className="text-white/40">.env.local</code> pour activer la
               prise de rendez-vous.
             </p>
             <button

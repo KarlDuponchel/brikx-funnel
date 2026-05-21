@@ -2,10 +2,53 @@ import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 import { getResend } from "@/lib/resend";
 
+async function resolveCalendlyEvent(eventUri: string) {
+  const token = process.env.CALENDLY_PERSONAL_ACCESS_TOKEN;
+  if (!token || !eventUri.startsWith("https://api.calendly.com/")) {
+    return { booking_date: null, booking_time: null };
+  }
+
+  try {
+    const res = await fetch(eventUri, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      console.error("Calendly API error:", res.status);
+      return { booking_date: null, booking_time: null };
+    }
+
+    const data = await res.json();
+    const startTime = data.resource?.start_time;
+
+    if (!startTime) return { booking_date: null, booking_time: null };
+
+    const d = new Date(startTime);
+    return {
+      booking_date: d.toLocaleDateString("fr-FR", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+      booking_time: d.toLocaleTimeString("fr-FR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+  } catch (err) {
+    console.error("Calendly event resolution error:", err);
+    return { booking_date: null, booking_time: null };
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { prenom, email, telephone, calendly_event_uri, booking_date, booking_time } = body;
+    const { prenom, email, telephone, calendly_event_uri } = body;
 
     if (!prenom || !email || !telephone) {
       return NextResponse.json(
@@ -13,6 +56,10 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    const { booking_date, booking_time } = calendly_event_uri
+      ? await resolveCalendlyEvent(calendly_event_uri)
+      : { booking_date: null, booking_time: null };
 
     const { data, error } = await getSupabase()
       .from("leads")
@@ -74,7 +121,10 @@ export async function POST(request: Request) {
       console.error("Resend email error:", emailError);
     }
 
-    return NextResponse.json({ success: true, id: data.id }, { status: 201 });
+    return NextResponse.json(
+      { success: true, id: data.id, booking_date, booking_time },
+      { status: 201 }
+    );
   } catch {
     return NextResponse.json(
       { error: "Erreur interne du serveur." },

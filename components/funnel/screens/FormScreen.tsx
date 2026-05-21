@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { LeadData } from "@/lib/types";
 import BackButton from "../shared/BackButton";
 import PrimaryButton from "../shared/PrimaryButton";
@@ -8,11 +9,51 @@ interface FormScreenProps {
   setLead: React.Dispatch<React.SetStateAction<LeadData>>;
 }
 
+function formatPhoneDisplay(raw: string): string | null {
+  const digits = raw.replace(/\D/g, "");
+
+  let normalized: string;
+  if (digits.startsWith("33") && digits.length >= 3) {
+    normalized = "0" + digits.slice(2);
+  } else if (digits.startsWith("0")) {
+    normalized = digits;
+  } else {
+    return null;
+  }
+
+  if (normalized.length < 1 || normalized.length > 10) return null;
+
+  const padded = normalized.padEnd(10, "·");
+  return `${padded.slice(0, 2)} ${padded.slice(2, 4)} ${padded.slice(4, 6)} ${padded.slice(6, 8)} ${padded.slice(8, 10)}`;
+}
+
+function isPhoneComplete(raw: string): boolean {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.startsWith("33")) return digits.length === 11;
+  if (digits.startsWith("0")) return digits.length === 10;
+  return false;
+}
+
 export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
+  const phoneComplete = useMemo(() => isPhoneComplete(lead.telephone), [lead.telephone]);
+  const phonePreview = useMemo(() => formatPhoneDisplay(lead.telephone), [lead.telephone]);
+
   const isValid =
     lead.prenom.trim() !== "" &&
     lead.email.trim() !== "" &&
-    lead.telephone.trim() !== "";
+    phoneComplete;
+
+  const handlePhoneChange = (value: string) => {
+    const cleaned = value.replace(/[^\d+]/g, "");
+
+    if (cleaned.startsWith("+")) {
+      if (cleaned.length > 12) return;
+    } else {
+      if (cleaned.replace(/\D/g, "").length > 10) return;
+    }
+
+    setLead((s) => ({ ...s, telephone: cleaned }));
+  };
 
   const handleSubmit = () => {
     if (isValid) goTo(3);
@@ -68,13 +109,25 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
           <input
             type="tel"
             value={lead.telephone}
-            onChange={(e) =>
-              setLead((s) => ({ ...s, telephone: e.target.value }))
-            }
+            onChange={(e) => handlePhoneChange(e.target.value)}
             placeholder="+33 6 00 00 00 00"
             autoComplete="tel"
             className="form-input w-full bg-grey border border-border text-white font-(family-name:--font-barlow) text-[15px] py-4 px-4.5 outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
           />
+          {lead.telephone.length > 0 && (
+            <div className="mt-2 flex items-center gap-2.5">
+              <span
+                className={`font-mono text-sm tracking-[2px] transition-colors duration-200 ${
+                  phoneComplete ? "text-green-400" : "text-white/30"
+                }`}
+              >
+                {phonePreview ?? lead.telephone}
+              </span>
+              {phoneComplete && (
+                <span className="text-green-400 text-xs">&#10003;</span>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
