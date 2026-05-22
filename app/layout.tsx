@@ -23,7 +23,7 @@ const barlowCondensed = Barlow_Condensed({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://go.brikx.fr";
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://funnel.brikxconsulting.com";
 
 export const metadata: Metadata = {
   title: "brikx. — Le Triple Projet pour dirigeants ambitieux",
