@@ -50,7 +50,7 @@ export async function GET(request: Request) {
     const rows = leads.map((l) => [
       escapeCsvField(l.prenom),
       escapeCsvField(l.email),
-      escapeCsvField(l.telephone),
+      escapeCsvField("+33" + l.telephone),
       escapeCsvField(l.booking_date),
       escapeCsvField(l.booking_time),
       escapeCsvField(l.domaine_activite),
