@@ -35,7 +35,7 @@ export default function QuestionnaireScreen({
   return (
     <div>
       <BackButton onClick={() => goTo(5)} />
-      <div className="max-w-[560px] mx-auto px-6 pt-6 pb-16">
+      <div className="max-w-140 mx-auto px-6 pt-6 pb-16">
         {/* Progress bar */}
         <div className="flex gap-1.5 mb-10">
           {[1, 2, 3, 4].map((n) => (
@@ -53,10 +53,10 @@ export default function QuestionnaireScreen({
             key={q.num}
             className={currentQ === q.num ? "block fade-up" : "hidden"}
           >
-            <p className="font-[family-name:var(--font-barlow-condensed)] text-[11px] font-bold tracking-[3px] uppercase text-grey-light mb-2.5">
+            <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3px] uppercase text-grey-light mb-2.5">
               Question {q.num} / {q.total}
             </p>
-            <h3 className="font-[family-name:var(--font-anton)] text-[clamp(20px,5vw,32px)] uppercase mb-7 leading-[1.15] whitespace-pre-line">
+            <h3 className="font-(family-name:--font-anton) text-[clamp(20px,5vw,32px)] uppercase mb-7 leading-[1.15] whitespace-pre-line">
               {q.question}
             </h3>
 
@@ -66,7 +66,7 @@ export default function QuestionnaireScreen({
                 value={getValue(q.field)}
                 onChange={(e) => setValue(q.field, e.target.value)}
                 placeholder={q.placeholder}
-                className="w-full bg-grey border border-border text-white font-[family-name:var(--font-barlow)] text-[15px] py-4 px-[18px] outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
+                className="w-full bg-grey border border-border text-white font-(family-name:--font-barlow) text-[15px] py-4 px-4.5 outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
               />
             )}
 
@@ -75,7 +75,7 @@ export default function QuestionnaireScreen({
                 value={getValue(q.field)}
                 onChange={(e) => setValue(q.field, e.target.value)}
                 placeholder={q.placeholder}
-                className="w-full bg-grey border border-border text-white font-[family-name:var(--font-barlow)] text-[15px] p-[18px] min-h-[120px] resize-y outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
+                className="w-full bg-grey border border-border text-white font-(family-name:--font-barlow) text-[15px] p-4.5 min-h-30 resize-y outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
               />
             )}
 
@@ -85,7 +85,7 @@ export default function QuestionnaireScreen({
                   <button
                     key={n}
                     onClick={() => setValue(q.field, n)}
-                    className={`w-[42px] h-[42px] border font-[family-name:var(--font-barlow-condensed)] text-sm font-bold cursor-pointer transition-all duration-150 ${
+                    className={`w-10.5 h-10.5 border font-(family-name:--font-barlow-condensed) text-sm font-bold cursor-pointer transition-all duration-150 ${
                       questionnaire.motivation === n
                         ? "bg-white text-black border-white"
                         : "bg-transparent text-white border-border hover:bg-white hover:text-black hover:border-white"

@@ -22,12 +22,13 @@ export default function ScreenWrapper({
       <footer className="py-12 text-center">
         <Image
           src="/logo-brikx.png"
+          loading="eager"
           alt="brikx."
           width={150}
           height={64}
-          className="h-16 w-auto mx-auto opacity-85 mb-3"
+          className="mx-auto opacity-85 mb-3"
         />
-        <p className="font-[family-name:var(--font-barlow-condensed)] text-[11px] font-bold tracking-[2.5px] uppercase text-white/25">
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-white/25">
           Santé &amp; Performance du Dirigeant
         </p>
       </footer>

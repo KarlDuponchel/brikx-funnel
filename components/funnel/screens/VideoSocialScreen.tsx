@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { STATS, TRIPLE_PROJET, PAIN_POINTS, TESTIMONIALS } from "@/lib/constants";
 import BackButton from "../shared/BackButton";
 import PrimaryButton from "../shared/PrimaryButton";
 
 interface VideoSocialScreenProps {
   goTo: (n: number) => void;
+  selectedPains: Set<number>;
+  setSelectedPains: React.Dispatch<React.SetStateAction<Set<number>>>;
 }
 
-export default function VideoSocialScreen({ goTo }: VideoSocialScreenProps) {
-  const [selectedPains, setSelectedPains] = useState<Set<number>>(new Set());
+export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPains }: VideoSocialScreenProps) {
 
   const togglePain = (i: number) => {
     setSelectedPains((prev) => {

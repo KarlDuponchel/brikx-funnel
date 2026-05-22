@@ -1,16 +1,19 @@
 import { NextResponse } from "next/server";
+import { calendlyEventSchema } from "@/lib/validation";
 
 export async function POST(request: Request) {
   try {
-    const { eventUri } = await request.json();
+    const body = await request.json();
+    const result = calendlyEventSchema.safeParse(body);
 
-    if (
-      !eventUri ||
-      typeof eventUri !== "string" ||
-      !eventUri.startsWith("https://api.calendly.com/")
-    ) {
-      return NextResponse.json({ error: "URI invalide." }, { status: 400 });
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "URI invalide.", details: result.error.flatten().fieldErrors },
+        { status: 400 }
+      );
     }
+
+    const { eventUri } = result.data;
 
     const token = process.env.CALENDLY_PERSONAL_ACCESS_TOKEN;
     if (!token) {

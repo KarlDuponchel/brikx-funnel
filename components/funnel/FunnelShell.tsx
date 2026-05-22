@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import type { LeadData, BookingData, QuestionnaireData } from "@/lib/types";
+import { PAIN_POINTS } from "@/lib/constants";
 import Stepper from "./Stepper";
 import ScreenWrapper from "./ScreenWrapper";
 import GrainOverlay from "./shared/GrainOverlay";
@@ -12,6 +13,7 @@ import CalendarScreen from "./screens/CalendarScreen";
 import ConfirmationScreen from "./screens/ConfirmationScreen";
 import QuestionnaireScreen from "./screens/QuestionnaireScreen";
 import FinalScreen from "./screens/FinalScreen";
+import TurnstileWidget from "./shared/TurnstileWidget";
 
 const TOTAL_SCREENS = 7;
 
@@ -19,6 +21,9 @@ export default function FunnelShell() {
   const [currentScreen, setCurrentScreen] = useState(1);
   const [leavingScreen, setLeavingScreen] = useState<number | null>(null);
   const [leadId, setLeadId] = useState<string | null>(null);
+  const [leadToken, setLeadToken] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [selectedPains, setSelectedPains] = useState<Set<number>>(new Set());
   const transitionRef = useRef(false);
 
   const [lead, setLead] = useState<LeadData>({
@@ -70,10 +75,13 @@ export default function FunnelShell() {
             email: lead.email,
             telephone: lead.telephone,
             calendly_event_uri: bookingData.calendlyEventUri,
+            turnstile_token: turnstileToken,
+            pain_points: Array.from(selectedPains).map((i) => PAIN_POINTS[i]),
           }),
         });
         const data = await res.json();
         if (data.id) setLeadId(data.id);
+        if (data.lead_token) setLeadToken(data.lead_token);
         setBooking({
           calendlyEventUri: bookingData.calendlyEventUri,
           date: data.booking_date ?? null,
@@ -85,7 +93,7 @@ export default function FunnelShell() {
       }
       goTo(5);
     },
-    [lead, goTo]
+    [lead, turnstileToken, selectedPains, goTo]
   );
 
   const handleQuestionnaireSubmit = useCallback(async () => {
@@ -99,6 +107,7 @@ export default function FunnelShell() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           lead_id: leadId,
+          lead_token: leadToken,
           ...questionnaire,
         }),
       });
@@ -106,7 +115,7 @@ export default function FunnelShell() {
       // Silencieux — le questionnaire est facultatif
     }
     goTo(7);
-  }, [leadId, questionnaire, goTo]);
+  }, [leadId, leadToken, questionnaire, goTo]);
 
   return (
     <>
@@ -118,10 +127,11 @@ export default function FunnelShell() {
 
       <ScreenWrapper isActive={currentScreen === 2} isLeaving={leavingScreen === 2}>
         <FormScreen goTo={goTo} lead={lead} setLead={setLead} />
+        <TurnstileWidget onToken={setTurnstileToken} />
       </ScreenWrapper>
 
       <ScreenWrapper isActive={currentScreen === 3} isLeaving={leavingScreen === 3}>
-        <VideoSocialScreen goTo={goTo} />
+        <VideoSocialScreen goTo={goTo} selectedPains={selectedPains} setSelectedPains={setSelectedPains} />
       </ScreenWrapper>
 
       <ScreenWrapper isActive={currentScreen === 4} isLeaving={leavingScreen === 4}>

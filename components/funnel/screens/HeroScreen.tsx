@@ -23,7 +23,7 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
       {/* Content */}
       <div className="py-8 px-6 max-w-[680px] mx-auto text-center">
         <p className="font-[family-name:var(--font-barlow-condensed)] text-[11px] font-bold tracking-[3.5px] uppercase text-grey-light mb-4">
-          brikx. consulting
+          brikxconsulting
         </p>
 
         <h1 className="font-[family-name:var(--font-anton)] text-[clamp(32px,8vw,64px)] leading-[1.0] tracking-[-0.5px] uppercase mb-5">
