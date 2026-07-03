@@ -53,7 +53,7 @@ export default function QuestionnaireScreen({
             key={q.num}
             className={currentQ === q.num ? "block fade-up" : "hidden"}
           >
-            <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3px] uppercase text-grey-light mb-2.5">
+            <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3px] uppercase text-primary mb-2.5">
               Question {q.num} / {q.total}
             </p>
             <h3 className="font-(family-name:--font-anton) text-[clamp(20px,5vw,32px)] uppercase mb-7 leading-[1.15] whitespace-pre-line">
@@ -87,8 +87,8 @@ export default function QuestionnaireScreen({
                     onClick={() => setValue(q.field, n)}
                     className={`w-10.5 h-10.5 border font-(family-name:--font-barlow-condensed) text-sm font-bold cursor-pointer transition-all duration-150 ${
                       questionnaire.motivation === n
-                        ? "bg-white text-black border-white"
-                        : "bg-transparent text-white border-border hover:bg-white hover:text-black hover:border-white"
+                        ? "bg-primary text-black border-primary"
+                        : "bg-transparent text-white border-border hover:bg-primary hover:text-black hover:border-primary"
                     }`}
                   >
                     {n}

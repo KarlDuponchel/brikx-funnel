@@ -24,7 +24,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
       <BackButton onClick={() => goTo(2)} />
       <div className="max-w-190 mx-auto px-6 pt-6 pb-12">
         {/* Video */}
-        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-grey-light mb-2.5 text-center">
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-primary mb-2.5 text-center">
           La méthode · Présentation exclusive
         </p>
         <h2 className="font-(family-name:--font-anton) text-[clamp(24px,5vw,40px)] uppercase text-center mb-8 leading-[1.05]">
@@ -66,7 +66,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
               <div className="font-(family-name:--font-anton) text-[clamp(28px,6vw,48px)] leading-none mb-1.5">
                 {stat.value}
               </div>
-              <div className="font-(family-name:--font-barlow-condensed) text-[10px] font-bold tracking-[2px] uppercase text-grey-light">
+              <div className="font-(family-name:--font-barlow-condensed) text-[10px] font-bold tracking-[2px] uppercase text-primary">
                 {stat.label}
               </div>
             </div>
@@ -75,7 +75,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
 
         {/* Triple Projet */}
         <div className="mb-14">
-          <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-grey-light mb-2.5">
+          <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-primary mb-2.5">
             La méthode · Fondée sur les neurosciences
           </p>
           <h3 className="font-(family-name:--font-anton) text-[clamp(22px,5vw,38px)] uppercase mb-6 leading-[1.1]">
@@ -99,7 +99,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
                 key={item.num}
                 className="border border-border p-5 transition-all duration-200 hover:border-white/30"
               >
-                <div className="font-condensed text-[11px] font-bold tracking-[2px] uppercase text-grey-light mb-1">
+                <div className="font-condensed text-[11px] font-bold tracking-[2px] uppercase text-primary mb-1">
                   {item.num}
                 </div>
                 <div className="font-(family-name:--font-anton) text-lg uppercase mb-2">
@@ -123,10 +123,10 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
               <button
                 key={i}
                 onClick={() => togglePain(i)}
-                className={`border text-left text-[13px] font-normal leading-[1.4] cursor-pointer transition-all duration-200 relative pl-10.5 py-4 pr-4.5 before:content-[''] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:w-3.5 before:h-3.5 before:border before:rounded-full before:transition-all before:duration-200 ${
+                className={`border text-left text-[13px] font-normal leading-[1.4] cursor-pointer transition-all duration-200 relative p-4  ${
                   selectedPains.has(i)
-                    ? "border-white/50 text-white bg-grey before:bg-white before:border-white"
-                    : "border-border text-white/60 hover:border-white/50 hover:text-white hover:bg-grey before:border-white/25"
+                    ? "border-primary text-primary"
+                    : "border-border text-white/60 hover:border-primary hover:text-primary"
                 }`}
               >
                 {pain}
@@ -175,7 +175,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
                 key={t.name}
                 className="border border-border p-6 bg-grey relative"
               >
-                <div className="text-[11px] tracking-[2px] text-yellow-400">
+                <div className="text-[11px] tracking-[2px] text-primary">
                   ★★★★★
                 </div>
                 <p className="text-sm leading-[1.65] text-white/75 mb-4.5 italic font-light">

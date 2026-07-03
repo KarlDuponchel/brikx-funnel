@@ -28,7 +28,7 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
           <Image src="/logo-brikx.png" alt="brikx." loading="eager" width={200} height={80} className="block" />
         </Link>
 
-        <div className="flex flex-wrap items-center py-1.5 px-3 sm:py-2 sm:px-4 rounded-full border border-accent/50 bg-accent/10 justify-center gap-x-2 gap-y-1 sm:gap-3 mb-8 max-w-full font-(family-name:--font-barlow-condensed) text-[10px] sm:text-[13px] font-semibold tracking-[0.5px] sm:tracking-[1.5px] text-grey-light">
+        <div className="flex flex-wrap items-center py-1.5 px-3 sm:py-2 sm:px-4 rounded-full border border-white/30 justify-center gap-x-2 gap-y-1 sm:gap-3 mb-8 max-w-full font-(family-name:--font-barlow-condensed) text-[10px] sm:text-[13px] font-semibold tracking-[0.5px] sm:tracking-[1.5px] text-white/90">
           <span>Elue meilleure formation pour les dirigeants</span>
           <span className="hidden sm:block w-px h-4 bg-grey-light/30" />
           <span className="flex items-center gap-1.5 sm:gap-2">
@@ -51,7 +51,7 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
           {"découvrir le".split(" ").map((word, i) => (
             <span
               key={i}
-              className="word-reveal inline-block mr-[0.3em]"
+              className="word-reveal inline-block mr-[0.3em] text-primary"
               style={{ animationDelay: `${(i + 3) * 0.08}s` }}
             >
               {word}

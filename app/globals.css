@@ -8,6 +8,7 @@
   --grey-light: #888888;
   --accent: #e8e8e8;
   --border: rgba(255, 255, 255, 0.12);
+  --primary: hsl(70, 100%, 50%);
 }
 
 @theme inline {
@@ -21,6 +22,7 @@
   --font-title: var(--font-anton);
   --font-body: var(--font-barlow);
   --font-condensed: var(--font-barlow-condensed);
+  --color-primary: var(--primary);
 }
 
 body {

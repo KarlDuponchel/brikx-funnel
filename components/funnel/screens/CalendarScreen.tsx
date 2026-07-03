@@ -110,7 +110,7 @@ export default function CalendarScreen({
     <div>
       <BackButton onClick={() => goTo(3)} />
       <div className="max-w-150 mx-auto px-6 pt-6 pb-12">
-        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-grey-light mb-2.5 text-center">
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-primary mb-2.5 text-center">
           Appel découverte · 30 minutes
         </p>
         <h2 className="font-(family-name:--font-anton) text-[clamp(24px,5vw,40px)] uppercase text-center mb-8 leading-[1.05]">
@@ -138,7 +138,7 @@ export default function CalendarScreen({
             <div className="mt-8 text-center">
               {booked ? (
                 <>
-                  <div className="mb-4 flex items-center justify-center gap-2 text-green-400 font-(family-name:--font-barlow-condensed) text-sm font-semibold tracking-[1.5px] uppercase">
+                  <div className="mb-4 flex items-center justify-center gap-2 text-primary font-(family-name:--font-barlow-condensed) text-sm font-semibold tracking-[1.5px] uppercase">
                     <span>&#10003;</span>
                     Créneau réservé
                   </div>

@@ -17,7 +17,7 @@ export default function FinalScreen({ lead }: FinalScreenProps) {
       <h2 className="font-(family-name:--font-anton) text-[clamp(28px,7vw,52px)] uppercase mb-2 leading-none">
         Tout est prêt.
       </h2>
-      <p className="font-(family-name:--font-barlow-condensed) text-[13px] font-semibold tracking-[2px] uppercase text-grey-light mb-9">
+      <p className="font-(family-name:--font-barlow-condensed) text-[13px] font-semibold tracking-[2px] uppercase text-primary mb-9">
         On a hâte de vous retrouver, {lead.prenom || "vous"}.
       </p>
 
@@ -37,7 +37,7 @@ export default function FinalScreen({ lead }: FinalScreenProps) {
 
       {/* Social links */}
       <div className="mt-8">
-        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-white/35 mb-5">
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-primary mb-5">
           Retrouvez-nous sur
         </p>
         <div className="flex justify-center gap-3">
@@ -63,7 +63,7 @@ export default function FinalScreen({ lead }: FinalScreenProps) {
           ].map((social) => (
             <div
               key={social.name}
-              className="w-10 h-10 border border-border flex items-center justify-center cursor-pointer transition-all duration-200 hover:border-white/50 hover:bg-white/5"
+              className="w-10 h-10 border border-border flex items-center justify-center cursor-pointer transition-all duration-200 hover:border-primary hover:bg-white/5"
               title={social.name}
               onClick={() => window.open(social.link, "_blank")}
             >

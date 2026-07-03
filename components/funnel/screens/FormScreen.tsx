@@ -63,7 +63,7 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
     <div>
       <BackButton onClick={() => goTo(1)} />
       <div className="max-w-130 mx-auto px-6 pt-6 pb-16">
-        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-grey-light mb-3 text-center">
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-primary mb-3 text-center">
           Étape 1 sur 2 · Accès gratuit
         </p>
         <h2 className="font-(family-name:--font-anton) text-[clamp(26px,6vw,44px)] uppercase text-center mb-3 leading-[1.05]">
@@ -118,13 +118,13 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
             <div className="mt-2 flex items-center gap-2.5">
               <span
                 className={`font-mono text-sm tracking-[2px] transition-colors duration-200 ${
-                  phoneComplete ? "text-green-400" : "text-white/30"
+                  phoneComplete ? "text-primary" : "text-white/30"
                 }`}
               >
                 {phonePreview ?? lead.telephone}
               </span>
               {phoneComplete && (
-                <span className="text-green-400 text-xs">&#10003;</span>
+                <span className="text-primary text-xs">&#10003;</span>
               )}
             </div>
           )}
