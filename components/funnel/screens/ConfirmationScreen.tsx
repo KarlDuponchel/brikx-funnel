@@ -85,10 +85,10 @@ export default function ConfirmationScreen({
 
       {/* Questionnaire CTA */}
       <div className="text-center">
-        <p className="font-[family-name:var(--font-barlow-condensed)] text-[11px] font-bold tracking-[2.5px] uppercase text-white/35 mb-[18px]">
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-white/35 mb-[18px]">
           Pour préparer au mieux notre rendez-vous
         </p>
-        <PrimaryButton onClick={() => goTo(6)}>
+        <PrimaryButton onClick={() => goTo(6)} className="max-w-100">
           Répondre au questionnaire
         </PrimaryButton>
         <SecondaryButton onClick={() => goTo(7)}>

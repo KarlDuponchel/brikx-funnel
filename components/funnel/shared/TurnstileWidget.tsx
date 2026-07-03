@@ -1,12 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useCallback,
+} from "react";
 
-interface TurnstileWidgetProps {
-  onToken: (token: string) => void;
+export interface TurnstileHandle {
+  /**
+   * Génère un token Turnstile frais à la demande (reset + execute).
+   * Résout avec le token, ou null si Turnstile est indisponible / a échoué.
+   */
+  getToken: () => Promise<string | null>;
 }
 
 const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+const TOKEN_TIMEOUT_MS = 20000;
 
 declare global {
   interface Window {
@@ -16,18 +27,33 @@ declare global {
         options: {
           sitekey: string;
           callback: (token: string) => void;
-          size: string;
-          theme: string;
+          "error-callback"?: () => void;
+          "timeout-callback"?: () => void;
+          execution?: "render" | "execute";
+          appearance?: "always" | "execute" | "interaction-only";
+          theme?: string;
         }
       ) => string;
+      execute: (widgetId: string) => void;
+      reset: (widgetId: string) => void;
       remove: (widgetId: string) => void;
     };
   }
 }
 
-export default function TurnstileWidget({ onToken }: TurnstileWidgetProps) {
+const TurnstileWidget = forwardRef<TurnstileHandle>(function TurnstileWidget(
+  _props,
+  ref
+) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
+  const resolverRef = useRef<((token: string | null) => void) | null>(null);
+
+  const settle = useCallback((token: string | null) => {
+    const resolve = resolverRef.current;
+    resolverRef.current = null;
+    resolve?.(token);
+  }, []);
 
   const renderWidget = useCallback(() => {
     if (!window.turnstile || !containerRef.current || !SITE_KEY) return;
@@ -35,11 +61,16 @@ export default function TurnstileWidget({ onToken }: TurnstileWidgetProps) {
 
     widgetIdRef.current = window.turnstile.render(containerRef.current, {
       sitekey: SITE_KEY,
-      callback: onToken,
-      size: "flexible",
+      // Le challenge ne se lance qu'à l'appel de execute() → token toujours frais.
+      execution: "execute",
+      // Invisible sauf si une interaction est réellement requise (trafic suspect).
+      appearance: "interaction-only",
       theme: "dark",
+      callback: (token) => settle(token),
+      "error-callback": () => settle(null),
+      "timeout-callback": () => settle(null),
     });
-  }, [onToken]);
+  }, [settle]);
 
   useEffect(() => {
     if (!SITE_KEY) return;
@@ -67,7 +98,45 @@ export default function TurnstileWidget({ onToken }: TurnstileWidgetProps) {
     };
   }, [renderWidget]);
 
+  useImperativeHandle(
+    ref,
+    () => ({
+      getToken: () =>
+        new Promise<string | null>((resolve) => {
+          // Pas de clé configurée : on laisse le serveur décider (dev / Turnstile désactivé).
+          if (!SITE_KEY) {
+            resolve(null);
+            return;
+          }
+          if (!window.turnstile || !widgetIdRef.current) {
+            resolve(null);
+            return;
+          }
+
+          // Un seul appel en vol à la fois : on annule le précédent.
+          settle(null);
+          resolverRef.current = resolve;
+
+          try {
+            window.turnstile.reset(widgetIdRef.current);
+            window.turnstile.execute(widgetIdRef.current);
+          } catch {
+            settle(null);
+            return;
+          }
+
+          // Filet de sécurité : si aucun callback ne se déclenche, on résout à null.
+          setTimeout(() => {
+            if (resolverRef.current === resolve) settle(null);
+          }, TOKEN_TIMEOUT_MS);
+        }),
+    }),
+    [settle]
+  );
+
   if (!SITE_KEY) return null;
 
-  return <div ref={containerRef} className="mt-4 flex justify-center" />;
-}
+  return <div ref={containerRef} className="hidden" />;
+});
+
+export default TurnstileWidget;

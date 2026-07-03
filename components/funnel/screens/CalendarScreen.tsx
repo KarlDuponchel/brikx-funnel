@@ -98,8 +98,9 @@ export default function CalendarScreen({
   }, []);
 
   const handleConfirm = () => {
+    // Le bouton n'est rendu que lorsque booked === true, donc eventUri est fiable.
     onBookingComplete({
-      calendlyEventUri: booked ? eventUri : null,
+      calendlyEventUri: eventUri,
       date: null,
       time: null,
     });
@@ -135,13 +136,24 @@ export default function CalendarScreen({
               className="w-full"
             />
             <div className="mt-8 text-center">
-              <PrimaryButton onClick={handleConfirm}>
-                J&apos;ai réservé mon créneau
-              </PrimaryButton>
-              <p className="mt-3 text-[11px] text-white/25 leading-[1.6]">
-                Cliquez après avoir confirmé votre rendez-vous dans le
-                calendrier ci-dessus.
-              </p>
+              {booked ? (
+                <>
+                  <div className="mb-4 flex items-center justify-center gap-2 text-green-400 font-(family-name:--font-barlow-condensed) text-sm font-semibold tracking-[1.5px] uppercase">
+                    <span>&#10003;</span>
+                    Créneau réservé
+                  </div>
+                  <PrimaryButton onClick={handleConfirm}>
+                    Continuer
+                  </PrimaryButton>
+                </>
+              ) : (
+                <p className="text-[13px] text-white/40 leading-[1.6] font-light">
+                  Confirmez votre rendez-vous dans le calendrier ci-dessus.
+                  <br />
+                  L&apos;étape suivante s&apos;affichera une fois votre créneau
+                  réservé.
+                </p>
+              )}
             </div>
           </>
         ) : (

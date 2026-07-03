@@ -1,6 +1,16 @@
 export async function verifyTurnstileToken(token: string | undefined): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true;
+  if (!secret) {
+    // Fail-closed en production : pas de clé = pas d'insertion (jamais de bypass silencieux).
+    if (process.env.NODE_ENV === "production") {
+      console.error(
+        "TURNSTILE_SECRET_KEY manquant en production — vérification anti-bot rejetée."
+      );
+      return false;
+    }
+    // En développement, on autorise sans captcha pour le confort local.
+    return true;
+  }
 
   if (!token) return false;
 

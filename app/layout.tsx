@@ -37,6 +37,10 @@ export const metadata: Metadata = {
       follow: false,
     },
   },
+  icons: {
+    icon: "/favicon.jpeg",
+    shortcut: "/favicon.jpeg",
+  },
   openGraph: {
     title: "brikx — Le Triple Projet",
     description:

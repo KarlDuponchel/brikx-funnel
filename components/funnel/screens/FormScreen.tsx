@@ -84,7 +84,7 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
             onChange={(e) => setLead((s) => ({ ...s, prenom: e.target.value }))}
             placeholder="Votre nom et prénom"
             autoComplete="given-name"
-            className="form-input w-full bg-grey border border-border text-white font-[family-name:var(--font-barlow)] text-[15px] py-4 px-[18px] outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
+            className="form-input w-full bg-grey border border-border text-white font-(family-name:--font-barlow) text-[15px] py-4 px-4.5 outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
           />
         </div>
 
@@ -98,7 +98,7 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
             onChange={(e) => setLead((s) => ({ ...s, email: e.target.value }))}
             placeholder="votre@email.com"
             autoComplete="email"
-            className="form-input w-full bg-grey border border-border text-white font-[family-name:var(--font-barlow)] text-[15px] py-4 px-[18px] outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
+            className="form-input w-full bg-grey border border-border text-white font-(family-name:--font-barlow) text-[15px] py-4 px-4.5 outline-none transition-[border-color] duration-200 focus:border-white/50 placeholder:text-white/20"
           />
         </div>
 
