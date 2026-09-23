@@ -83,6 +83,9 @@ export default function FunnelShell() {
           }),
         });
         const data = await res.json();
+        if (!res.ok) {
+          console.error(`Création du lead refusée (${res.status}) :`, data.error);
+        }
         if (data.id) setLeadId(data.id);
         if (data.lead_token) setLeadToken(data.lead_token);
         setBooking({

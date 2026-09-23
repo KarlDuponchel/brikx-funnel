@@ -37,10 +37,12 @@ async function resolveCalendlyEvent(eventUri: string) {
         day: "numeric",
         month: "long",
         year: "numeric",
+        timeZone: "Europe/Paris",
       }),
       booking_time: d.toLocaleTimeString("fr-FR", {
         hour: "2-digit",
         minute: "2-digit",
+        timeZone: "Europe/Paris",
       }),
       booking_start: startTime,
     };

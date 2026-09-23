@@ -20,6 +20,24 @@
         ],
         "createdAt": "2026-09-23T13:54:40.016Z",
         "reason": "Claude triage: L53 borderLeft is the CSS triangle of the play icon (moved from VideoSocialScreen), not a card side-tab accent"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "app/api/leads/route.ts"
+        ],
+        "createdAt": "2026-09-23T14:11:54.726Z",
+        "reason": "Claude triage: pre-existing email HTML template; Helvetica/Arial is the email-client-safe stack (web fonts unreliable in mail clients)"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "app/api/cron/leads-export/route.ts"
+        ],
+        "createdAt": "2026-09-23T14:11:54.939Z",
+        "reason": "Claude triage: pre-existing email HTML template; Helvetica/Arial is the email-client-safe stack (web fonts unreliable in mail clients)"
       }
     ]
   }

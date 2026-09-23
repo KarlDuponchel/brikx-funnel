@@ -20,6 +20,7 @@ function formatDate(iso: string): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Europe/Paris",
   });
 }
 
@@ -62,7 +63,7 @@ export async function GET(request: Request) {
     ].join(","));
 
     const csv = BOM + headers.join(",") + "\n" + rows.join("\n");
-    const today = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+    const today = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Paris" });
     const exportEmail = process.env.LEADS_EXPORT_EMAIL || "contact@karlduponchel.fr";
     const from = process.env.RESEND_FROM_EMAIL || "Brikx Consulting <noreply@karlduponchel.fr>";
 
