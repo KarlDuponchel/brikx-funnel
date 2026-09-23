@@ -13,7 +13,6 @@ import CalendarScreen from "./screens/CalendarScreen";
 import ConfirmationScreen from "./screens/ConfirmationScreen";
 import QuestionnaireScreen from "./screens/QuestionnaireScreen";
 import FinalScreen from "./screens/FinalScreen";
-import TurnstileWidget, { type TurnstileHandle } from "./shared/TurnstileWidget";
 
 const TOTAL_SCREENS = 7;
 
@@ -24,7 +23,6 @@ export default function FunnelShell() {
   const [leadToken, setLeadToken] = useState<string | null>(null);
   const [selectedPains, setSelectedPains] = useState<Set<number>>(new Set());
   const transitionRef = useRef(false);
-  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const [lead, setLead] = useState<LeadData>({
     prenom: "",
@@ -65,11 +63,8 @@ export default function FunnelShell() {
   );
 
   const handleLeadCreated = useCallback(
-    async (bookingData: BookingData) => {
+    async (bookingData: BookingData, turnstileToken: string | null) => {
       try {
-        // Token Turnstile frais généré au moment de l'envoi (évite toute expiration).
-        const turnstileToken = (await turnstileRef.current?.getToken()) ?? null;
-
         const res = await fetch("/api/leads", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -159,8 +154,6 @@ export default function FunnelShell() {
       <ScreenWrapper isActive={currentScreen === 7} isLeaving={leavingScreen === 7}>
         <FinalScreen lead={lead} />
       </ScreenWrapper>
-
-      <TurnstileWidget ref={turnstileRef} />
 
       <GrainOverlay />
     </>

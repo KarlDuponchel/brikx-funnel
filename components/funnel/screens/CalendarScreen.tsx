@@ -1,7 +1,8 @@
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useCallback, useEffect, useState, useMemo, useRef } from "react";
 import type { LeadData, BookingData } from "@/lib/types";
 import BackButton from "../shared/BackButton";
 import PrimaryButton from "../shared/PrimaryButton";
+import TurnstileWidget, { TURNSTILE_ENABLED, type TurnstileStatus } from "../shared/TurnstileWidget";
 
 declare global {
   interface Window {
@@ -17,7 +18,7 @@ declare global {
 interface CalendarScreenProps {
   goTo: (n: number) => void;
   lead: LeadData;
-  onBookingComplete: (booking: BookingData) => void;
+  onBookingComplete: (booking: BookingData, turnstileToken: string | null) => Promise<void>;
 }
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL;
@@ -29,6 +30,10 @@ export default function CalendarScreen({
 }: CalendarScreenProps) {
   const [booked, setBooked] = useState(false);
   const [eventUri, setEventUri] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileStatus, setTurnstileStatus] = useState<TurnstileStatus>("pending");
+  const [turnstileKey, setTurnstileKey] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calendlySrc = useMemo(() => {
@@ -97,13 +102,29 @@ export default function CalendarScreen({
     return () => window.removeEventListener("message", handler);
   }, []);
 
-  const handleConfirm = () => {
+  const handleTurnstileToken = useCallback((token: string | null, status: TurnstileStatus) => {
+    setTurnstileToken(token);
+    setTurnstileStatus(status);
+  }, []);
+
+  const retryTurnstile = () => {
+    setTurnstileToken(null);
+    setTurnstileStatus("pending");
+    setTurnstileKey((k) => k + 1);
+  };
+
+  // Bloqué tant que la vérification anti-bot n'a pas fourni de jeton
+  const verified = !TURNSTILE_ENABLED || turnstileToken !== null;
+
+  const handleConfirm = async () => {
+    if (!verified || submitting) return;
+    setSubmitting(true);
     // Le bouton n'est rendu que lorsque booked === true, donc eventUri est fiable.
-    onBookingComplete({
-      calendlyEventUri: eventUri,
-      date: null,
-      time: null,
-    });
+    await onBookingComplete(
+      { calendlyEventUri: eventUri, date: null, time: null },
+      turnstileToken
+    );
+    setSubmitting(false);
   };
 
   return (
@@ -142,8 +163,25 @@ export default function CalendarScreen({
                     <span>&#10003;</span>
                     Créneau réservé
                   </div>
-                  <PrimaryButton onClick={handleConfirm}>
-                    Continuer
+                  {TURNSTILE_ENABLED && (
+                    <div className="mb-4">
+                      <TurnstileWidget key={turnstileKey} onToken={handleTurnstileToken} />
+                      {turnstileStatus === "error" && (
+                        <p className="mt-2 text-[12px] text-white/50 font-light">
+                          La vérification de sécurité a échoué.{" "}
+                          <button
+                            type="button"
+                            onClick={retryTurnstile}
+                            className="bg-transparent border-0 p-0 text-primary underline underline-offset-2 cursor-pointer"
+                          >
+                            Réessayer
+                          </button>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  <PrimaryButton onClick={handleConfirm} disabled={!verified || submitting}>
+                    {!verified ? "Vérification…" : submitting ? "Confirmation…" : "Continuer"}
                   </PrimaryButton>
                 </>
               ) : (
@@ -170,11 +208,14 @@ export default function CalendarScreen({
             </p>
             <button
               onClick={() =>
-                onBookingComplete({
-                  calendlyEventUri: "test-event",
-                  date: "Mercredi 21 mai 2026",
-                  time: "10h00",
-                })
+                onBookingComplete(
+                  {
+                    calendlyEventUri: "test-event",
+                    date: "Mercredi 21 mai 2026",
+                    time: "10h00",
+                  },
+                  null
+                )
               }
               className="mt-6 text-xs text-white/30 border border-white/15 px-4 py-2 cursor-pointer hover:text-white/60 hover:border-white/30 transition-all"
             >
