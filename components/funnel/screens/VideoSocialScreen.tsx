@@ -1,6 +1,8 @@
 import { STATS, TRIPLE_PROJET, PAIN_POINTS, TESTIMONIALS } from "@/lib/constants";
 import BackButton from "../shared/BackButton";
 import PrimaryButton from "../shared/PrimaryButton";
+import TestimonialCard from "../shared/TestimonialCard";
+import PresentationVideo from "../shared/PresentationVideo";
 
 interface VideoSocialScreenProps {
   goTo: (n: number) => void;
@@ -31,33 +33,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
           Faites-vous<br />brikx.er !
         </h2>
 
-        <div className="bg-grey aspect-video flex flex-col items-center justify-center relative cursor-pointer overflow-hidden mb-9 border border-border transition-[border-color] duration-200 hover:border-white/30">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px)",
-            }}
-          />
-          <div className="play-ring" />
-          <div className="play-ring" />
-          <div className="play-ring" />
-          <div className="w-16 h-16 border-2 border-white/70 rounded-full flex items-center justify-center relative z-1 transition-all duration-200">
-            <div
-              className="ml-1"
-              style={{
-                width: 0,
-                height: 0,
-                borderTop: "11px solid transparent",
-                borderBottom: "11px solid transparent",
-                borderLeft: "18px solid rgba(255,255,255,0.9)",
-              }}
-            />
-          </div>
-          <p className="font-(family-name:--font-barlow-condensed) text-xs font-semibold tracking-[1.5px] uppercase text-white/35 mt-4 text-center relative z-1">
-            Vidéo de présentation · C1 · ~12 min
-          </p>
-        </div>
+        <PresentationVideo />
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-px bg-border border border-border mb-14">
@@ -171,30 +147,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
           </h3>
           <div className="grid gap-4">
             {TESTIMONIALS.map((t) => (
-              <div
-                key={t.name}
-                className="border border-border p-6 bg-grey relative"
-              >
-                <div className="text-[11px] tracking-[2px] text-primary">
-                  ★★★★★
-                </div>
-                <p className="text-sm leading-[1.65] text-white/75 mb-4.5 italic font-light">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10.5 h-10.5 bg-grey-mid rounded-full shrink-0 flex items-center justify-center font-(family-name:--font-anton) text-base">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <div className="font-(family-name:--font-barlow-condensed) text-xs font-bold tracking-[1.5px] uppercase">
-                      {t.name}
-                    </div>
-                    <div className="text-[11px] text-grey-light mt-0.5">
-                      {t.role}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TestimonialCard key={t.name} {...t} />
             ))}
           </div>
         </div>

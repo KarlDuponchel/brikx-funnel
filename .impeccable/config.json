@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "components/funnel/screens/VideoSocialScreen.tsx"
+        ],
+        "createdAt": "2026-09-23T13:44:58.701Z",
+        "reason": "Claude triage: L54 borderLeft is the CSS triangle of the video play icon (pre-existing), not a card side-tab accent"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "components/funnel/shared/PresentationVideo.tsx"
+        ],
+        "createdAt": "2026-09-23T13:54:40.016Z",
+        "reason": "Claude triage: L53 borderLeft is the CSS triangle of the play icon (moved from VideoSocialScreen), not a card side-tab accent"
+      }
+    ]
+  }
+}
