@@ -8,17 +8,17 @@ export const TRIPLE_PROJET = [
   {
     num: "01",
     name: "Projet Professionnel",
-    desc: "Structurer une vision, déléguer intelligemment, piloter la croissance sans s'épuiser.",
+    desc: "Savoir où l'on veut aller, faire les bons choix et se donner les moyens de concrétiser ses ambitions..",
   },
   {
     num: "02",
-    name: "Projet Santé",
-    desc: "Énergie, sommeil, récupération — les fondations biologiques de la performance durable.",
+    name: "Projet personnel",
+    desc: "Ne pas laisser ses passions, ses envies et ses projets personnels passer après le reste. Leur donner une vraie place dans son quotidien.",
   },
   {
     num: "03",
-    name: "Projet de Vie",
-    desc: "Couple, famille, sens personnel — ce qui donne une raison de performer.",
+    name: "Projet familiale",
+    desc: "Être présent pour ceux qui comptent, préserver les moments que l'on ne pourra pas rattraper et construire des projets à partager.",
   },
 ];
 
@@ -56,9 +56,11 @@ export const TESTIMONIALS = [
 ];
 
 export const FEATURES = [
-  "+200 dirigeants accompagnés",
-  "Fondé sur les neurosciences",
-  "Sans engagement",
+  "3 sphères",
+  "1 trajectoire"
+  // "+200 dirigeants accompagnés",
+  // "Fondé sur les neurosciences",
+  // "Sans engagement",
 ];
 
 export const QUESTIONS = [

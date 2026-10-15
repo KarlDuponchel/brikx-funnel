@@ -39,8 +39,8 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
   const phonePreview = useMemo(() => formatPhoneDisplay(lead.telephone), [lead.telephone]);
 
   const isValid =
-    lead.prenom.trim() !== "" &&
-    lead.email.trim() !== "" &&
+    // lead.prenom.trim() !== "" &&
+    // lead.email.trim() !== "" &&
     phoneComplete;
 
   const handlePhoneChange = (value: string) => {
@@ -70,13 +70,12 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
           Accédez à la<br />présentation<br />complète
         </h2>
         <p className="text-center text-sm text-white/50 mb-10 leading-[1.6] font-light">
-          Renseignez vos informations pour accéder à la vidéo de présentation et
-          réserver votre appel découverte.
+          Découvrez en 3 minutes comment le Triple Projet vous accompagne dans la réalisation de vos ambitions professionnelles, personnelles et familiales.
         </p>
 
         <div className="mb-5">
           <label className="block font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-grey-light mb-2">
-            Nom/Prénom*
+            Nom/Prénom
           </label>
           <input
             type="text"
@@ -90,7 +89,7 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
 
         <div className="mb-5">
           <label className="block font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-grey-light mb-2">
-            Adresse e-mail*
+            Adresse e-mail
           </label>
           <input
             type="email"
@@ -155,7 +154,7 @@ export default function FormScreen({ goTo, lead, setLead }: FormScreenProps) {
 
         <div className="mt-6">
           <PrimaryButton onClick={handleSubmit} disabled={!isValid}>
-            Accéder à la présentation
+            DÉCOUVRIR LE TRIPLE PROJET
           </PrimaryButton>
         </div>
 

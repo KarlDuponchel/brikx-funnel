@@ -30,7 +30,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
           La méthode · Présentation exclusive
         </p>
         <h2 className="font-(family-name:--font-anton) text-[clamp(24px,5vw,40px)] uppercase text-center mb-8 leading-[1.05]">
-          Faites-vous<br />brikx.er !
+          LE TRIPLE PROJET
         </h2>
 
         <PresentationVideo />
@@ -58,16 +58,15 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
             Le Triple Projet
           </h3>
           <p className="text-sm leading-[1.7] text-white/55 mb-6 font-light">
-            La plupart des approches de coaching traitent la performance
-            professionnelle d&apos;un côté, la santé de l&apos;autre — et
-            ignorent le reste. Le Triple Projet part d&apos;un principe
-            différent, validé par les neurosciences :{" "}
-            <strong className="text-white font-semibold">
-              un dirigeant ne peut pas performer durablement s&apos;il se
-              fragmente
-            </strong>
-            . Les trois projets forment un système. On travaille les trois, ou
-            on ne travaille rien.
+            Le Triple Projet est une méthode d&apos;accompagnement qui permet aux dirigeants 
+            de définir ce qu&apos;il souhaite vraiment accomplir dans toutes les sphères : 
+            professionnelle, personnelle, familiale.
+            <br /><br />
+            Ensemble, nous fixons des objectifs concrets, des échéances réalistes et 
+            des habitudes adaptées à son quotidien. Un suivi individuel régulier permet 
+            de garder le cap, d'ajuster ce qui doit l'être et surtout d&apos;être l'action concrète.
+            Tout au long du parcours, les interventions d'experts apportent un autre regard 
+            grâce aux neurosciences, pour mieux se comprendre et avancer.
           </p>
           <div className="grid gap-3">
             {TRIPLE_PROJET.map((item) => (

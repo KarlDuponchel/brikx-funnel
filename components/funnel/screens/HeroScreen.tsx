@@ -28,14 +28,14 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
           <Image src="/logo-brikx.png" alt="brikx." loading="eager" width={200} height={80} className="block" />
         </Link>
 
-        <div className="flex flex-wrap items-center py-1.5 px-3 sm:py-2 sm:px-4 rounded-full border border-white/30 justify-center gap-x-2 gap-y-1 sm:gap-3 mb-8 max-w-full font-(family-name:--font-barlow-condensed) text-[10px] sm:text-[13px] font-semibold tracking-[0.5px] sm:tracking-[1.5px] text-white/90">
+        {/* <div className="flex flex-wrap items-center py-1.5 px-3 sm:py-2 sm:px-4 rounded-full border border-white/30 justify-center gap-x-2 gap-y-1 sm:gap-3 mb-8 max-w-full font-(family-name:--font-barlow-condensed) text-[10px] sm:text-[13px] font-semibold tracking-[0.5px] sm:tracking-[1.5px] text-white/90">
           <span>Elue meilleure formation pour les dirigeants</span>
           <span className="hidden sm:block w-px h-4 bg-grey-light/30" />
           <span className="flex items-center gap-1.5 sm:gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4caf50] animate-[pulseGreen_1.5s_infinite]" />
             Places limitées
           </span>
-        </div>
+        </div> */}
 
         <h1 className="font-(family-name:--font-anton) text-[clamp(42px,11vw,64px)] leading-none tracking-[-0.5px] uppercase mb-5">
           {"3 minutes pour".split(" ").map((word, i) => (
@@ -67,8 +67,7 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
         </h1>
 
         <p className="text-[15px] leading-[1.65] text-white/65 max-w-120 mx-auto mb-8 font-light">
-          Une méthode pour les dirigeants qui refusent de choisir entre la
-          performance de leur entreprise, leur santé et leur vie.
+          Et si vos ambitions professionnelles, personnelles et familiales avançaient enfin ensemble ?
         </p>
 
         <div className="flex justify-center gap-6 flex-wrap mb-9">
@@ -85,9 +84,6 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
         <PrimaryButton onClick={() => goTo(2)} className="max-w-100">
           Découvrir le Triple Projet
         </PrimaryButton>
-        <SecondaryButton onClick={() => goTo(2)}>
-          En savoir plus · Gratuit
-        </SecondaryButton>
       </div>
     </div>
   );
