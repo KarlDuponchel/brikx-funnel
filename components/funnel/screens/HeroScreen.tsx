@@ -70,16 +70,9 @@ export default function HeroScreen({ goTo }: HeroScreenProps) {
           Et si vos ambitions professionnelles, personnelles et familiales avançaient enfin ensemble ?
         </p>
 
-        <div className="flex justify-center gap-6 flex-wrap mb-9">
-          {FEATURES.map((feat) => (
-            <span
-              key={feat}
-              className="font-(family-name:--font-barlow-condensed) text-xs font-semibold tracking-[1.5px] uppercase text-white/50 flex items-center gap-1.75 before:content-[''] before:w-4.5 before:h-px before:bg-white/30"
-            >
-              {feat}
-            </span>
-          ))}
-        </div>
+        <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-primary mb-9 text-center">
+          {FEATURES.join(" · ")}
+        </p>
 
         <PrimaryButton onClick={() => goTo(2)} className="max-w-100">
           Découvrir le Triple Projet

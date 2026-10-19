@@ -67,7 +67,7 @@ export async function GET(request: Request) {
 
               <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12); text-align: center;">
                 <p style="color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">
-                  brikxconsulting — Santé &amp; Performance du Dirigeant
+                  BRIKX — 3 sphères. 1 trajectoire.
                 </p>
               </div>
             </div>

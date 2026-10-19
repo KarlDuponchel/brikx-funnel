@@ -8,28 +8,39 @@ export const TRIPLE_PROJET = [
   {
     num: "01",
     name: "Projet Professionnel",
-    desc: "Savoir où l'on veut aller, faire les bons choix et se donner les moyens de concrétiser ses ambitions..",
+    desc: "Savoir où l'on veut aller, faire les bons choix et se donner les moyens de concrétiser ses ambitions.",
+    example: "développer son entreprise, prendre du recul pour mieux décider les actions et préparer une nouvelle étape de sa vie professionnelle."
   },
   {
     num: "02",
     name: "Projet personnel",
     desc: "Ne pas laisser ses passions, ses envies et ses projets personnels passer après le reste. Leur donner une vraie place dans son quotidien.",
+    example: "reprendre un sport, préparer un défi sportif, s'investir dans une passion, apprendre quelque chose de nouveau ."
   },
   {
     num: "03",
     name: "Projet familiale",
     desc: "Être présent pour ceux qui comptent, préserver les moments que l'on ne pourra pas rattraper et construire des projets à partager.",
+    example: "organiser un voyage en famille, partager une passion avec ses proches, être davantage présent dans les moments importants ou réaliser un projet commun."
   },
 ];
 
 export const PAIN_POINTS = [
-  "Travailler 60h/semaine sans voir de résultats proportionnels",
-  "Sacrifier votre santé pour votre entreprise",
-  "Ne plus avoir de temps pour votre vie personnelle",
-  "Vous sentir seul face aux décisions stratégiques",
-  "Enchaîner les formations sans changement durable",
-  "Repousser votre bien-être à « quand j'aurai le temps »",
+  "J'ai encore beaucoup de choses à accomplir professionnellement.",
+  "Il y a des projets personnels que je repousse depuis trop longtemps.",
+  "J'aimerais partager davantage d'expériences avec mes proches.",
+  "J'ai des idées, des envies, mais je ne prends pas le temps de les concrétiser.",
+  // Ancienne version (titre « Vous en avez marre de... ») :
+  // "Travailler 60h/semaine sans voir de résultats proportionnels",
+  // "Sacrifier votre santé pour votre entreprise",
+  // "Ne plus avoir de temps pour votre vie personnelle",
+  // "Vous sentir seul face aux décisions stratégiques",
+  // "Enchaîner les formations sans changement durable",
+  // "Repousser votre bien-être à « quand j'aurai le temps »",
 ];
+
+export const VIDEO_CTA_LABEL = "Réserver mon appel découverte";
+// Version testée : "Et si nous prenions le temps de parler de vos projets ?"
 
 export const TESTIMONIALS = [
   {

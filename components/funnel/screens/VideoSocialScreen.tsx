@@ -1,4 +1,4 @@
-import { STATS, TRIPLE_PROJET, PAIN_POINTS, TESTIMONIALS } from "@/lib/constants";
+import { STATS, TRIPLE_PROJET, PAIN_POINTS, TESTIMONIALS, VIDEO_CTA_LABEL } from "@/lib/constants";
 import BackButton from "../shared/BackButton";
 import PrimaryButton from "../shared/PrimaryButton";
 import TestimonialCard from "../shared/TestimonialCard";
@@ -52,7 +52,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
         {/* Triple Projet */}
         <div className="mb-14">
           <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[3.5px] uppercase text-primary mb-2.5">
-            La méthode · Fondée sur les neurosciences
+            3 sphères. 1 trajectoire.
           </p>
           <h3 className="font-(family-name:--font-anton) text-[clamp(22px,5vw,38px)] uppercase mb-6 leading-[1.1]">
             Le Triple Projet
@@ -64,8 +64,8 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
             <br /><br />
             Ensemble, nous fixons des objectifs concrets, des échéances réalistes et 
             des habitudes adaptées à son quotidien. Un suivi individuel régulier permet 
-            de garder le cap, d'ajuster ce qui doit l'être et surtout d&apos;être l'action concrète.
-            Tout au long du parcours, les interventions d'experts apportent un autre regard 
+            de garder le cap, d&apos;ajuster ce qui doit l&apos;être et surtout d&apos;être l&apos;action concrète.
+            Tout au long du parcours, les interventions d&apos;experts apportent un autre regard 
             grâce aux neurosciences, pour mieux se comprendre et avancer.
           </p>
           <div className="grid gap-3">
@@ -83,6 +83,9 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
                 <p className="text-[13px] leading-[1.6] text-white/55 font-light">
                   {item.desc}
                 </p>
+                <p className="text-[13px] leading-[1.6] text-white/55 font-light">
+                  <span className="font-semibold text-white">Par exemple : </span> {item.example}
+                </p>
               </div>
             ))}
           </div>
@@ -91,7 +94,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
         {/* Pain points */}
         <div className="mb-14">
           <h3 className="font-(family-name:--font-anton) text-[clamp(22px,5vw,38px)] uppercase mb-6 leading-[1.1]">
-            Vous en avez marre de...
+            Et vous, où en sont vos projets ?
           </h3>
           <div className="grid grid-cols-2 gap-2.5 max-sm:grid-cols-1">
             {PAIN_POINTS.map((pain, i) => (
@@ -132,7 +135,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
           </div>
 
           <PrimaryButton onClick={() => goTo(4)}>
-            Réserver mon appel découverte
+            {VIDEO_CTA_LABEL}
           </PrimaryButton>
         </div>
 
@@ -154,7 +157,7 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
         {/* Bottom CTA */}
         <div className="text-center">
           <PrimaryButton onClick={() => goTo(4)}>
-            Réserver mon appel découverte
+            {VIDEO_CTA_LABEL}
           </PrimaryButton>
         </div>
       </div>

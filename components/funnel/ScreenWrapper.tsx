@@ -16,10 +16,10 @@ export default function ScreenWrapper({
 
   return (
     <section
-      className={`screen ${isActive ? "screen-enter" : ""} ${isLeaving ? "screen-leave" : ""}`}
+      className={`screen flex flex-col ${isActive ? "screen-enter" : ""} ${isLeaving ? "screen-leave" : ""}`}
     >
       {children}
-      <footer className="py-12 text-center">
+      <footer className="mt-auto py-12 text-center">
         <Image
           src="/logo-brikx.png"
           loading="eager"
@@ -29,7 +29,7 @@ export default function ScreenWrapper({
           className="mx-auto opacity-85 mb-3"
         />
         <p className="font-(family-name:--font-barlow-condensed) text-[11px] font-bold tracking-[2.5px] uppercase text-white/25">
-          Santé &amp; Performance du Dirigeant
+          BRIKX — 3 sphères. 1 trajectoire.
         </p>
       </footer>
     </section>

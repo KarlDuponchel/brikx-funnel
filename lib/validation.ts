@@ -9,13 +9,15 @@ export const leadCreateSchema = z.object({
     .string()
     .transform((v) => v.replace(/\s+/g, ""))
     .pipe(z.string().regex(phoneRegex, "Numéro de téléphone français invalide")),
+  // Le client envoie null quand Calendly ne renvoie pas d'URI ou que Turnstile est désactivé
   calendly_event_uri: z
-    .string()
-    .max(500)
-    .startsWith("https://api.calendly.com/")
+    .union([z.string().max(500).startsWith("https://api.calendly.com/"), z.literal(""), z.null()])
     .optional()
-    .or(z.literal("").transform(() => undefined)),
-  turnstile_token: z.string().optional(),
+    .transform((v) => v || undefined),
+  turnstile_token: z
+    .string()
+    .nullish()
+    .transform((v) => v ?? undefined),
   pain_points: z.array(z.string().max(200)).max(10).optional().default([]),
 });
 
