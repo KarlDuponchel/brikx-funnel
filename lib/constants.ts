@@ -1,7 +1,7 @@
 export const STATS = [
   { value: "+200", label: "Dirigeants accompagnés" },
-  { value: "4.9", label: "Note moyenne" },
-  { value: "4", label: "Associés experts" },
+  { value: "4.6", label: "Note moyenne" },
+  { value: "+10", label: "Ans d'expertise" },
 ];
 
 export const TRIPLE_PROJET = [
