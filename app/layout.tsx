@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Anton, Barlow, Barlow_Condensed } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import "./globals.css";
+
+const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL;
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 const anton = Anton({
   weight: "400",
@@ -73,7 +76,9 @@ export default function RootLayout({
     >
       <body>
         {children}
-        <Analytics />
+        {umamiScriptUrl && umamiWebsiteId && (
+          <Script src={umamiScriptUrl} data-website-id={umamiWebsiteId} strategy="afterInteractive" />
+        )}
       </body>
     </html>
   );

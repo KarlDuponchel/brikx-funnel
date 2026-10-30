@@ -5,9 +5,9 @@
 - ~~Cron de synchro des leads dans un fichier Google Sheets + CSV à envoyer par mail~~
 - Cron de synchro des leads dans Google Sheets (à implémenter)
 
-## Prérequis Vercel / Supabase (à configurer avant le déploiement)
+## Prérequis Dokploy / Supabase (à configurer avant le déploiement)
 
-### Variables d'environnement Vercel
+### Variables d'environnement (Dokploy)
 | Variable | Description |
 |---|---|
 | `SUPABASE_URL` | URL du projet Supabase |
@@ -21,15 +21,21 @@
 | `LEAD_TOKEN_SECRET` | Chaîne aléatoire 32+ chars (ex : `openssl rand -hex 32`) |
 | `CRON_SECRET` | Chaîne aléatoire pour protéger les routes cron (ex : `openssl rand -hex 32`) |
 | `LEADS_EXPORT_EMAIL` | Adresse de réception du CSV quotidien (`contact@karlduponchel.fr`) |
+| `NEXT_PUBLIC_APP_URL` | URL publique du site (`https://funnel.brikxconsulting.com`) |
+| `NEXT_PUBLIC_UMAMI_SCRIPT_URL` | Ex : `https://umami.mondomaine.fr/script.js` (optionnel) |
+| `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | ID du site dans Umami (optionnel) |
+
+> Les variables `NEXT_PUBLIC_*` sont injectées au build : redéployer après les avoir modifiées.
 
 ### Cloudflare Turnstile
 1. Créer un widget sur https://dash.cloudflare.com/turnstile
-2. Ajouter les hostnames : `go.brikx.fr`, `localhost`, et le sous-domaine Vercel temporaire
-3. Récupérer la site key et la secret key → les ajouter dans Vercel
+2. Ajouter les hostnames : `funnel.brikxconsulting.com`, `localhost`, et le domaine temporaire Dokploy (`*.traefik.me`)
+3. Récupérer la site key et la secret key → les ajouter dans Dokploy
 
-### Crons Vercel
-Les crons sont configurés dans `vercel.json` et seront actifs automatiquement après déploiement :
-- **Rappel email** : toutes les heures (`/api/cron/reminder`)
+### Crons
+Dokploy ignore `vercel.json` (conservé tant que Vercel sert le domaine, à supprimer au basculement).
+À créer côté VPS **après le basculement DNS** uniquement, pour éviter les doublons avec Vercel :
+- **Rappel email** : `/api/cron/reminder`
 - **Export CSV** : tous les jours à 8h UTC (`/api/cron/leads-export`)
 
-> Note : les crons Vercel nécessitent un plan Pro ou supérieur pour les fréquences < 1 jour.
+Appel avec l'en-tête `Authorization: Bearer <CRON_SECRET>`. Sans `CRON_SECRET`, les routes sont publiques.
