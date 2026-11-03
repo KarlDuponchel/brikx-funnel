@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+import { Resend, type Attachment } from "resend";
 
 let _resend: Resend | null = null;
 
@@ -11,4 +11,30 @@ export function getResend(): Resend {
     _resend = new Resend(key);
   }
   return _resend;
+}
+
+interface SendEmailParams {
+  to: string;
+  subject: string;
+  html: string;
+  attachments?: Attachment[];
+}
+
+/**
+ * Expéditeur et reply-to pilotés par l'environnement.
+ * Le SDK Resend ne lève pas d'exception en cas d'échec : on la lève ici
+ * pour que les appelants ne considèrent jamais un e-mail non envoyé comme envoyé.
+ */
+export async function sendEmail(params: SendEmailParams) {
+  const from = process.env.RESEND_FROM_EMAIL;
+  if (!from) {
+    throw new Error("RESEND_FROM_EMAIL doit être configuré dans .env.local");
+  }
+  const replyTo = process.env.RESEND_REPLY_TO || undefined;
+
+  const { data, error } = await getResend().emails.send({ ...params, from, replyTo });
+  if (error) {
+    throw new Error(`Échec d'envoi Resend (${error.name}) : ${error.message}`);
+  }
+  return data;
 }

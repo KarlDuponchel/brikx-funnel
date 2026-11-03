@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
-import { getResend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 import { verifyCronSecret } from "@/lib/cron-auth";
 
 function escapeCsvField(value: string | null | undefined): string {
@@ -64,11 +64,13 @@ export async function GET(request: Request) {
 
     const csv = BOM + headers.join(",") + "\n" + rows.join("\n");
     const today = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Paris" });
-    const exportEmail = process.env.LEADS_EXPORT_EMAIL || "contact@karlduponchel.fr";
-    const from = process.env.RESEND_FROM_EMAIL || "Brikx Consulting <noreply@karlduponchel.fr>";
+    const exportEmail = process.env.LEADS_EXPORT_EMAIL;
+    if (!exportEmail) {
+      console.error("LEADS_EXPORT_EMAIL manquant — export CSV impossible.");
+      return NextResponse.json({ error: "Destinataire de l'export non configuré." }, { status: 500 });
+    }
 
-    await getResend().emails.send({
-      from,
+    await sendEmail({
       to: exportEmail,
       subject: `Export leads du ${today} — ${leads.length} RDV à venir — brikx`,
       html: `

@@ -15,6 +15,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Image Docker minimale (voir Dockerfile)
+  output: "standalone",
   async headers() {
     return [
       {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
-import { getResend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 import { escapeHtml } from "@/lib/sanitize";
 import { verifyCronSecret } from "@/lib/cron-auth";
 
@@ -30,7 +30,6 @@ export async function GET(request: Request) {
       return NextResponse.json({ message: "Aucun rappel à envoyer.", count: 0 });
     }
 
-    const from = process.env.RESEND_FROM_EMAIL || "Brikx Consulting <noreply@karlduponchel.fr>";
     let sent = 0;
 
     for (const lead of leads) {
@@ -39,8 +38,7 @@ export async function GET(request: Request) {
       const safeTime = lead.booking_time ? escapeHtml(lead.booking_time) : null;
 
       try {
-        await getResend().emails.send({
-          from,
+        await sendEmail({
           to: lead.email,
           subject: "Rappel — votre appel découverte est demain — brikx.",
           html: `

@@ -13,14 +13,15 @@
 | `SUPABASE_URL` | URL du projet Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | Clé service role Supabase |
 | `RESEND_API_KEY` | Clé API Resend |
-| `RESEND_FROM_EMAIL` | Ex : `Brikx Consulting <noreply@brikx.fr>` |
+| `RESEND_FROM_EMAIL` | Expéditeur de tous les e-mails, obligatoire (ex : `Brikx Consulting <noreply@brikx.fr>`) |
+| `RESEND_REPLY_TO` | Adresse de réponse des e-mails envoyés aux leads (optionnel) |
 | `NEXT_PUBLIC_CALENDLY_URL` | URL du calendrier Calendly |
 | `CALENDLY_PERSONAL_ACCESS_TOKEN` | Token API Calendly |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Clé site Turnstile (créer sur dash.cloudflare.com/turnstile) |
 | `TURNSTILE_SECRET_KEY` | Clé secrète Turnstile |
 | `LEAD_TOKEN_SECRET` | Chaîne aléatoire 32+ chars (ex : `openssl rand -hex 32`) |
 | `CRON_SECRET` | Chaîne aléatoire pour protéger les routes cron (ex : `openssl rand -hex 32`) |
-| `LEADS_EXPORT_EMAIL` | Adresse de réception du CSV quotidien (`contact@karlduponchel.fr`) |
+| `LEADS_EXPORT_EMAIL` | Adresse de réception du CSV quotidien, obligatoire |
 | `NEXT_PUBLIC_APP_URL` | URL publique du site (`https://funnel.brikxconsulting.com`) |
 | `NEXT_PUBLIC_UMAMI_SCRIPT_URL` | Ex : `https://umami.mondomaine.fr/script.js` (optionnel) |
 | `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | ID du site dans Umami (optionnel) |

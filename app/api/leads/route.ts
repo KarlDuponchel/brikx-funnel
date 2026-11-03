@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
-import { getResend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 import { leadCreateSchema } from "@/lib/validation";
 import { escapeHtml } from "@/lib/sanitize";
 import { verifyTurnstileToken } from "@/lib/turnstile";
@@ -108,8 +108,7 @@ export async function POST(request: Request) {
     const safeTime = booking_time ? escapeHtml(booking_time) : null;
 
     try {
-      await getResend().emails.send({
-        from: process.env.RESEND_FROM_EMAIL || "Brikx Consulting <noreply@karlduponchel.fr>",
+      await sendEmail({
         to: email,
         subject: "Votre appel découverte est confirmé — brikx.",
         html: `
