@@ -13,8 +13,20 @@ export function getResend(): Resend {
   return _resend;
 }
 
+/**
+ * Liste de destinataires lue dans une variable d'environnement,
+ * séparés par des virgules ou des points-virgules (ex : "a@x.fr, b@y.fr").
+ * Resend refuse une chaîne contenant plusieurs adresses : il faut un tableau.
+ */
+export function recipientsFromEnv(name: string): string[] {
+  return (process.env[name] ?? "")
+    .split(/[,;]/)
+    .map((email) => email.trim())
+    .filter(Boolean);
+}
+
 interface SendEmailParams {
-  to: string;
+  to: string | string[];
   subject: string;
   html: string;
   attachments?: Attachment[];

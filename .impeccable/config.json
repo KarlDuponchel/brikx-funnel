@@ -38,6 +38,12 @@
         ],
         "createdAt": "2026-09-23T14:11:54.939Z",
         "reason": "Claude triage: pre-existing email HTML template; Helvetica/Arial is the email-client-safe stack (web fonts unreliable in mail clients)"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "createdAt": "2026-11-13T17:20:37.584Z",
+        "reason": "Claude: e-mails HTML transactionnels — pile de polices système sûre pour les clients mail, identique aux templates existants (reminder, leads-export, leads)"
       }
     ]
   }
