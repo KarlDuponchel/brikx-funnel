@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "brikxconsulting",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: `${siteUrl}/logo-brikx.png`, width: 1200, height: 630, alt: "brikx— Le Triple Projet" }],
+    images: [{ url: `${siteUrl}/logo-brikx.png`, width: 1200, height: 630, alt: "brikx — Le Triple Projet" }],
   },
   twitter: {
     card: "summary_large_image",

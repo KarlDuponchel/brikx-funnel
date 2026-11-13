@@ -28,7 +28,7 @@ export default function FinalScreen({ lead }: FinalScreenProps) {
           <strong className="text-white font-semibold">
             Votre rendez-vous est confirmé.
           </strong>{" "}
-          Vous recevrez un rappel par e-mail 24h avant avec le lien de connexion
+          Vous recevrez un rappel par e-mail 24&nbsp;h avant avec le lien de connexion
           à la visio.
         </p>
       </div>

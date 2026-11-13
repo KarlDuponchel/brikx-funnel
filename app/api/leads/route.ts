@@ -130,7 +130,7 @@ export async function POST(request: Request) {
             </div>
 
             <p style="color: #888; font-size: 13px; line-height: 1.6;">
-              Vous recevrez un rappel 24h avant votre rendez-vous avec le lien de connexion à la visioconférence.
+              Vous recevrez un rappel 24&nbsp;h avant votre rendez-vous avec le lien de connexion à la visioconférence.
             </p>
 
             <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12); text-align: center;">

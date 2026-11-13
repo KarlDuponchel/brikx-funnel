@@ -9,17 +9,17 @@ export const TRIPLE_PROJET = [
     num: "01",
     name: "Projet Professionnel",
     desc: "Savoir où l'on veut aller, faire les bons choix et se donner les moyens de concrétiser ses ambitions.",
-    example: "développer son entreprise, prendre du recul pour mieux décider les actions et préparer une nouvelle étape de sa vie professionnelle."
+    example: "développer son entreprise, prendre du recul pour mieux décider des actions et préparer une nouvelle étape de sa vie professionnelle."
   },
   {
     num: "02",
-    name: "Projet personnel",
+    name: "Projet Personnel",
     desc: "Ne pas laisser ses passions, ses envies et ses projets personnels passer après le reste. Leur donner une vraie place dans son quotidien.",
-    example: "reprendre un sport, préparer un défi sportif, s'investir dans une passion, apprendre quelque chose de nouveau ."
+    example: "reprendre un sport, préparer un défi sportif, s'investir dans une passion, apprendre quelque chose de nouveau."
   },
   {
     num: "03",
-    name: "Projet familiale",
+    name: "Projet Familial",
     desc: "Être présent pour ceux qui comptent, préserver les moments que l'on ne pourra pas rattraper et construire des projets à partager.",
     example: "organiser un voyage en famille, partager une passion avec ses proches, être davantage présent dans les moments importants ou réaliser un projet commun."
   },
@@ -45,16 +45,16 @@ export const VIDEO_CTA_LABEL = "Réserver mon appel découverte";
 export const TESTIMONIALS = [
   {
     quote:
-      "Nous tenons un commerce avec mon mari depuis plus de 14 ans.\nComme beaucoup de femme d'entrepeneur je devais gérer beaucoup de choses à la fois endossant plusieurs casquettes mais sans jamais réellement trouver ma place.\nCroulant sous la surcharge mentale, physique (stress, gestion du personnel, admistratif et comptable) j'ai fait appel à Brikx.\nJ'ai pu bénéficier d'un accompagnement et d'un coaching afin de reprendre ma vie en main.\nJ'ai enfin pu trouver ma place au sein de mon entreprise, à gérer mon temps aussi bien professionnel que personnel et gérer mes priorités.\nCela m'a apporté une meilleure confiance en moi, un apaisement aussi bien au travail que dans ma relation avec mon mari.\nEt une belle rencontre avec Gaelle et Anaïs.\nMerciiii mille fois à vous.",
+      "Nous tenons un commerce avec mon mari depuis plus de 14 ans.\nComme beaucoup de femmes d'entrepreneurs je devais gérer beaucoup de choses à la fois endossant plusieurs casquettes mais sans jamais réellement trouver ma place.\nCroulant sous la surcharge mentale, physique (stress, gestion du personnel, administratif et comptable) j'ai fait appel à Brikx.\nJ'ai pu bénéficier d'un accompagnement et d'un coaching afin de reprendre ma vie en main.\nJ'ai enfin pu trouver ma place au sein de mon entreprise, gérer mon temps aussi bien professionnel que personnel et gérer mes priorités.\nCela m'a apporté une meilleure confiance en moi, un apaisement aussi bien au travail que dans ma relation avec mon mari.\nEt une belle rencontre avec Gaëlle et Anaïs.\nMerciiii mille fois à vous.",
     name: "Magali",
-    role: "Gérant d'un commerce",
+    role: "Gérante d'un commerce",
     initials: "M",
   },
   {
     quote:
-      "Gérant en couple d'une entreprise employant 8 salariés nous avons fait appel à Brikx pour un coaching car nous traversions une période de surcharge mentale, de doute, fatigue et remise en question ce qui faillit nous mener au burnout.\nLeur approche dans le management, prise de décision, prise de recul, cohésion et harmonie du couple nous ont permis de retrouver une belle énergie, un management positif et structuré, ce qui nous a apporté beaucoup de sérénités MERCI BRIKS.",
+      "Gérants en couple d'une entreprise employant 8 salariés nous avons fait appel à Brikx pour un coaching car nous traversions une période de surcharge mentale, de doute, fatigue et remise en question ce qui a failli nous mener au burn-out.\nLeur approche dans le management, prise de décision, prise de recul, cohésion et harmonie du couple nous ont permis de retrouver une belle énergie, un management positif et structuré, ce qui nous a apporté beaucoup de sérénité MERCI BRIKX.",
     name: "Maxime",
-    role: "Associée dirigeant",
+    role: "Associé dirigeant",
     initials: "M",
   },
   {

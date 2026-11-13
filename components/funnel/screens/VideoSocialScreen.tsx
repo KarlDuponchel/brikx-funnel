@@ -59,12 +59,12 @@ export default function VideoSocialScreen({ goTo, selectedPains, setSelectedPain
           </h3>
           <p className="text-sm leading-[1.7] text-white/55 mb-6 font-light">
             Le Triple Projet est une méthode d&apos;accompagnement qui permet aux dirigeants 
-            de définir ce qu&apos;il souhaite vraiment accomplir dans toutes les sphères : 
+            de définir ce qu&apos;ils souhaitent vraiment accomplir dans toutes les sphères : 
             professionnelle, personnelle, familiale.
             <br /><br />
             Ensemble, nous fixons des objectifs concrets, des échéances réalistes et 
-            des habitudes adaptées à son quotidien. Un suivi individuel régulier permet 
-            de garder le cap, d&apos;ajuster ce qui doit l&apos;être et surtout d&apos;être l&apos;action concrète.
+            des habitudes adaptées à leur quotidien. Un suivi individuel régulier permet 
+            de garder le cap, d&apos;ajuster ce qui doit l&apos;être et surtout de passer à l&apos;action.
             Tout au long du parcours, les interventions d&apos;experts apportent un autre regard 
             grâce aux neurosciences, pour mieux se comprendre et avancer.
           </p>
