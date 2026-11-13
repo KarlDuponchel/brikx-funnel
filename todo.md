@@ -35,11 +35,11 @@
 3. Récupérer la site key et la secret key → les ajouter dans Dokploy
 
 ### Crons
-Le site est hébergé sur Dokploy : les crons sont des **Schedules** de l'application (onglet Schedules, shell `sh`).
-Le conteneur n'a pas `curl` ; chaque schedule appelle la route en local avec `node` :
+Le site est hébergé sur Dokploy : les crons sont des **Schedules** de l'application (onglet Schedules de l'app, timezone UTC, Shell Type **Sh** — l'image Alpine n'a pas `bash`).
+La commande s'exécute dans le conteneur et passe par `scripts/cron.mjs`, qui lit `CRON_SECRET` dans l'environnement de l'app :
 
 ```sh
-node -e "fetch('http://127.0.0.1:3000/api/cron/<route>',{headers:{Authorization:'Bearer '+process.env.CRON_SECRET}}).then(async r=>{console.log(r.status,await r.text());if(!r.ok)process.exit(1)})"
+node scripts/cron.mjs <route>
 ```
 
 | Schedule | Cron (UTC) | Route |
